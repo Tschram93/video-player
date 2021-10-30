@@ -6,7 +6,7 @@ const ranges = player.querySelectorAll('.player__slider');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const toggle = player.querySelector('.toggle');
 const video = player.querySelector('.viewer');
-
+let mousedown = true;
 
 // Create Functions
 function togglePlay() {
@@ -42,7 +42,9 @@ function skip() {
 }
 // Create Event Listeners
 progress.addEventListener('click', scrub);
-progress.addEventListener('mousemove', scrub);
+progress.addEventListener('mousemove', (e) => mousedown && scrub(e));
+progress.addEventListener('mousedown', () => mousedown = true);
+progress.addEventListener('mouseup', () => mousedown = false);
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
